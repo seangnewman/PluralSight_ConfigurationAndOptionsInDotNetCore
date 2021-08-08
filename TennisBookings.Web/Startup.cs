@@ -7,6 +7,10 @@ using TennisBookings.Web.Core.DependencyInjection;
 using TennisBookings.Web.Data;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
+using TennisBookings.Web.Configuration;
+using TennisBookings.Web.Services;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Options;
 
 namespace TennisBookings.Web
 {
@@ -26,6 +30,37 @@ namespace TennisBookings.Web
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.Configure<HomePageConfiguration>(Configuration.GetSection("Features:HomePage"));
+
+             
+
+            //services.AddOptions<HomePageConfiguration>()
+            //    .Bind(Configuration.GetSection("Features:HomePage"))
+            //    .Validate( c => {
+            //        if (c.EnableWeatherForecast && string.IsNullOrEmpty(c.ForecastSectionTitle))
+            //        {
+            //            return false;
+            //        }
+
+            //        return true;
+            //    }, "A section title must be provided when the hompage weather forecast is enabled.");
+              
+            services.TryAddEnumerable(ServiceDescriptor.Singleton<IValidateOptions<HomePageConfiguration>, HomePageConfigurationValidation>());
+            services.TryAddEnumerable(ServiceDescriptor.Singleton<IValidateOptions<ExternalServicesConfig>, ExternalServicesConfigurationValidation>());
+
+            services.AddHostedService<ValidateOptionsService>();
+
+            services.Configure<GreetingConfiguration>(Configuration.GetSection("Features:Greeting"));
+
+            services.Configure<WeatherForecastingConfiguration>(Configuration.GetSection("Features:WeatherForecasting"));
+
+            services.Configure<ExternalServicesConfig>(ExternalServicesConfig.WeatherApi, Configuration.GetSection("ExternalServices:WeatherApi"));
+            services.Configure<ExternalServicesConfig>(ExternalServicesConfig.ProductsApi, Configuration.GetSection("ExternalServices:ProductsApi"));
+
+            services.Configure<ContentConfiguration>(Configuration.GetSection("Content"));
+            services.AddSingleton<IContentConfiguration>(sp =>
+                sp.GetRequiredService<IOptions<ContentConfiguration>>().Value);
+
             services
                 .AddAppConfiguration(Configuration)
                 .AddBookingServices()
@@ -35,11 +70,13 @@ namespace TennisBookings.Web
                 .AddStaffServices()
                 .AddCourtServices()
                 .AddWeatherForecasting(Configuration)
+                .AddExternalProducts()
                 .AddNotifications()                
                 .AddGreetings()
                 .AddCaching()
                 .AddTimeServices()
-                .AddAuditing();
+                .AddAuditing()
+                .AddContentServices();
 
             services.AddControllersWithViews();
             services.AddRazorPages(options =>
@@ -52,7 +89,7 @@ namespace TennisBookings.Web
             services.AddIdentity<TennisBookingsUser, TennisBookingsRole>()
                 .AddEntityFrameworkStores<TennisBookingDbContext>()
                 .AddDefaultUI()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders();            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

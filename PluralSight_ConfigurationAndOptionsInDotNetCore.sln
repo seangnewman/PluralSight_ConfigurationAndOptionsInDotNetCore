@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TennisBookings.Web", "Tenni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeatherService.Api", "WeatherService.Api\WeatherService.Api.csproj", "{B85EF6EC-DE01-4818-962F-4A5C53A7F410}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrandedProducts.Api", "BrandedProducts.Api\BrandedProducts.Api.csproj", "{6BF56685-E9A9-4C25-899A-BB8900EB5285}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TennisBookings.Web.Tests", "test\TennisBookings.Web.Tests\TennisBookings.Web.Tests.csproj", "{39230DB0-B3E8-419C-89A4-4779B1871E29}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{B85EF6EC-DE01-4818-962F-4A5C53A7F410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B85EF6EC-DE01-4818-962F-4A5C53A7F410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B85EF6EC-DE01-4818-962F-4A5C53A7F410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BF56685-E9A9-4C25-899A-BB8900EB5285}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BF56685-E9A9-4C25-899A-BB8900EB5285}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BF56685-E9A9-4C25-899A-BB8900EB5285}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BF56685-E9A9-4C25-899A-BB8900EB5285}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39230DB0-B3E8-419C-89A4-4779B1871E29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39230DB0-B3E8-419C-89A4-4779B1871E29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39230DB0-B3E8-419C-89A4-4779B1871E29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39230DB0-B3E8-419C-89A4-4779B1871E29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
